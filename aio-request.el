@@ -5,11 +5,10 @@
 ;; Author: Truls Asheim <truls@asheim.dk>
 ;; Maintainer: Truls Asheim <truls@asheim.dk>
 ;; Created: 21 Aug 2019
-;; Keywords: async reqyests aio
-;; Homepage: https://github.com/truls/request-aio
-
+;; Keywords: lisp comm
+;; Homepage: https://github.com/truls/aio-request
 ;; Package-Version: 0.1
-;; Package-Requires: (cl-lib (aio "1.0") (request "0.1.3"))
+;; Package-Requires: ((aio "1.0") (request "0.1.3") (emacs "24.3"))
 
 ;;; This file is not part of GNU Emacs.
 
@@ -42,8 +41,8 @@
 
 Works like the request library except that a promise is
 returned. This promise resolves to either an error or the
-response object. The response object is describe by the request
-documentation.
+response object. The response object is described by the
+request.el documentation.
 
 Like in request URL is the url to be fetched and SETTINGS is a
 property list with settings. See the documentation for request
@@ -52,8 +51,8 @@ callbacks (:complete, :success and :error) cannot be used as they
 are reserved for resolving the promise and are pointless under
 async/await semantics.
 
-See the documentation for the aio library for information on how
-to use the returned promise object.
+See the documentation for the aio.el library for information on
+how to use the returned promise object.
 
 Example:
   (let ((response (aio-wait-for (aio-request \"google.com\"))))
