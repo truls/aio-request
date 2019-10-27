@@ -1,22 +1,29 @@
-# `aio` wrapper for `requests`
+# `aio` wrapper for `request.el`
 
-This package provide the `aio-requests` which is a wrapper around
-`requests` returning a promise. This promise resolves to either an
-    error or the response object. The response object is describe by the
-request documentation.
+This package provides a wrapper around the `request.el` package
+allowing it to be used with the
+[aio](https://github.com/skeeto/emacs-aio) library.
 
-Like in request URL is the url to be fetched and SETTINGS is a
-property list with settings. See the documentation for request
-for details. Note that the properties containing
-callbacks (:complete, :success and :error) cannot be used as they
-are reserved for resolving the promise and are pointless under
-async/await semantics.
+This package provides a single function `aio-request` which is used as
+follows:
 
-See the documentation for the aio library for information on how
-to use the returned promise object.
+    (defun url settings)
+URL is the url to be fetched and SETTINGS is a property list with
+settings.  Refer to the documentation for the request package for
+information about available settings.  Note that the properties
+for specifying callbacks (`:complete`, `:success` and `:error`) are
+unavailable as they are reserved internally for promise
+resolution.  Further, they do not serve any purpose when the
+`request` function is called through this wrapper.
+
+This function returns a promise which resolves to either an error
+or the response object.  Refer to the `request,el` package
+documentation for details about the response object.
+
+See the documentation for the `aio` package for information about
+how to use the returned promise object.
 
 Example:
-```
+
     (let ((response (aio-wait-for (aio-request \"google.com\"))))
-     ...)
-```
+       ...)"

@@ -36,32 +36,40 @@
 (require 'request)
 
 ;;;###autoload
-(defun aio-request (url &rest settings)
-  "Provides an aio wrapper from the request library.
+(cl-defun aio-request (url &rest settings
+                           &key
+                           (type "GET")
+                           (params nil)
+                           (data nil)
+                           (files nil)
+                           (parser nil)
+                           (headers nil)
+                           (encoding 'utf-8)
+                           (timeout request-timeout)
+                           (status-code nil)
+                           (sync nil)
+                           (response (make-request-response))
+                           (unix-socket nil))
+  "An aio wrapper for the request package.
 
-Works like the request library except that a promise is
-returned. This promise resolves to either an error or the
-response object. The response object is described by the
-request.el documentation.
+URL is the url to be fetched and SETTINGS is a property list with
+settings.  Refer to the documentation for the request package for
+information about available settings.  Note that the properties
+for specifying callbacks (:complete, :success and :error) are
+unavailable as they are reserved internally for promise
+resolution.  Further, they do not serve any purpose when the
+`request' function is called through this wrapper.
 
-Like in request URL is the url to be fetched and SETTINGS is a
-property list with settings. See the documentation for request
-for details. Note that the properties containing
-callbacks (:complete, :success and :error) cannot be used as they
-are reserved for resolving the promise and are pointless under
-async/await semantics.
+This function returns a promise which resolves to either an error
+or the response object.  Refer to the `request' package
+documentation for details about the response object.
 
-See the documentation for the aio.el library for information on
+See the documentation for the `aio' package for information about
 how to use the returned promise object.
 
 Example:
   (let ((response (aio-wait-for (aio-request \"google.com\"))))
-     ...)
-"
-  (when (or (plist-get settings :complete)
-            (plist-get settings :success)
-            (plist-get settings :error))
-    (user-error "The :complete, :success, and :error callbacks doesn't make sense with request-aio"))
+     ...)"
   (let* ((promise (aio-promise))
          (settings
           (plist-put
@@ -69,9 +77,9 @@ Example:
            :error
            (cl-function
             (lambda (&key
-                     symbol-status
-                     error-thrown
-                     &allow-other-keys)
+                symbol-status
+                error-thrown
+                &allow-other-keys)
               (aio-resolve promise
                            (lambda () (signal symbol-status error-thrown)))))))
          (settings
