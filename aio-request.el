@@ -1,4 +1,4 @@
-;;; aio-request.el --- Wrap request.el in aio -*- lexical-binding: t -*-
+;;; aio-request.el --- aio wrapper for request.el-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2019 Truls Asheim
 
