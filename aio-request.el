@@ -1,4 +1,4 @@
-;;; aio-request.el --- aio wrapper for request.el-*- lexical-binding: t -*-
+;;; aio-request.el --- Aio wrapper for request.el-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2019 Truls Asheim
 
@@ -7,7 +7,7 @@
 ;; Created: 21 Aug 2019
 ;; Keywords: lisp comm
 ;; Homepage: https://github.com/truls/aio-request
-;; Package-Version: 0.1
+;; Version: 0.1
 ;; Package-Requires: ((aio "1.0") (request "0.3.1") (emacs "24.3"))
 
 ;;; This file is not part of GNU Emacs.
