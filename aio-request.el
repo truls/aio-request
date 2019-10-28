@@ -70,6 +70,18 @@ how to use the returned promise object.
 Example:
   (let ((response (aio-wait-for (aio-request \"google.com\"))))
      ...)"
+  (ignore type)
+  (ignore params)
+  (ignore data)
+  (ignore files)
+  (ignore parser)
+  (ignore headers)
+  (ignore encoding)
+  (ignore timeout)
+  (ignore status-code)
+  (ignore sync)
+  (ignore response)
+  (ignore unix-socket)
   (let* ((promise (aio-promise))
          (settings
           (plist-put
